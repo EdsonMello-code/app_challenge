@@ -12,17 +12,6 @@ class FoodDatasourceImpl implements FoodDatasource {
 
   final IDatabase database;
 
-  final _insertSql = ''' 
-      CREATE TABLE IF NOT EXISTS foods (
-        id TEXT PRIMARY KEY,
-        publisher TEXT, 
-        isSelected BOOLEAN NOT NULL CHECK (isSelected IN (0,1)),
-        imageUrl TEXT, 
-        originUrl TEXT, 
-        title TEXT
-      );
-    ''';
-
   final _createTableSql = ''' 
       CREATE TABLE IF NOT EXISTS foods (
         id TEXT PRIMARY KEY,
@@ -68,8 +57,7 @@ class FoodDatasourceImpl implements FoodDatasource {
   @override
   Future<bool> saveFoodDatasource({required FoodEntity food}) async {
     try {
-      final connection = await _databaseConnection;
-      await connection.execute(_insertSql);
+      final connection = await initConnection();
 
       await connection.insert(
         'foods',
