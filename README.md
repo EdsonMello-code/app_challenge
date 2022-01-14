@@ -12,7 +12,8 @@
   - Modular
   - ValueNotifier
   - Dio
-
+  - Sqlite
+    
 
 
 
